@@ -1,6 +1,7 @@
 from picosystem import *
 import time
 
+IDLE = -1
 LOOP = 0
 ONCE = 1
 
@@ -11,7 +12,7 @@ class Animation:
         self.ss = ss
         self.frames = frames
         self.last_ticks = 0
-        self.state = -1
+        self.state = IDLE
         self.current_frame = 0
         self.scale = scale
 
@@ -23,7 +24,7 @@ class Animation:
     def stop(self):
         self.last_ticks = 0
         self.current_frame = 0
-        self.state = -1
+        self.state = IDLE
 
     def __idle(self, x: int, y: int):
         (frame, _) = self.frames[0]
@@ -58,9 +59,10 @@ class Animation:
 
     def draw(self, x: int, y: int):
         spritesheet(self.ss)
-        if self.state == -1:
+        if self.state == IDLE:
             self.__idle(x, y)
         elif self.state == LOOP:
             self.__loop(x, y)
         elif self.state == ONCE:
             self.__once(x, y)
+        spritesheet()
