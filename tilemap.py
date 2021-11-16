@@ -10,7 +10,7 @@ class TileMap:
         self.x = x
         self.y = y
         self.scale = scale
-        self.map = [0] * (w * h)
+        self.map = [-1] * (w * h)
         self.b = Buffer(w * 8, h * 8)
         self.dirty = True
 
@@ -28,7 +28,9 @@ class TileMap:
         clear()
         for y in range(self.h):
             for x in range(self.w):
-                sprite(self.get(x, y), x * 8, y * 8)
+                tile_index = self.get(x, y)
+                if tile_index != -1:
+                    sprite(tile_index, x * 8, y * 8)
 
         blend()
         spritesheet()
