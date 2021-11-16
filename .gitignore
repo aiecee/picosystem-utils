@@ -133,3 +133,4 @@ dmypy.json
 
 # pico-go
 pico-go.json
+.pico-go.json
