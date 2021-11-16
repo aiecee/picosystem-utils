@@ -2,7 +2,7 @@ from picosystem import *
 from tilemap import TileMap
 
 sprite_sheet = Buffer(128, 128)
-open("pirate-tilemap.16bpp", "rb").readinto(sprite_sheet)
+open("s4m_ur4i-pirate-tilemap.16bpp", "rb").readinto(sprite_sheet)
 
 tile_map = TileMap(15, 15, sprite_sheet)
 tile_map.set(0, 0, 0)
@@ -16,6 +16,8 @@ def update(tick: int):
 
 def draw(tick: int):
     global tile_map
+    pen(0, 0, 0)
+    clear()
     tile_map.draw(0, 0)
 
 
