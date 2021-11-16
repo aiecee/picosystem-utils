@@ -5,7 +5,7 @@ sprite_sheet = Buffer(128, 128)
 open("s4m_ur4i-pirate-characters.16bpp", "rb").readinto(sprite_sheet)
 
 anim = animation.Animation(
-    sprite_sheet, [(0, 0), (1, 1000), (2, 1000), (3, 1000), (4, 1000)])
+    sprite_sheet, [(0, 0), (1, 1000), (2, 1000), (3, 1000), (4, 1000)], 2)
 
 playing = False
 
