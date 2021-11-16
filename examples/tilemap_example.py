@@ -16,7 +16,7 @@ def update(tick: int):
 
 def draw(tick: int):
     global tile_map
-    tile_map.draw()
+    tile_map.draw(0, 0)
 
 
 start()

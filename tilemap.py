@@ -3,12 +3,10 @@ from picosystem import *
 
 class TileMap:
 
-    def __init__(self, w: int, h: int, ss: Buffer, x: int = 0, y: int = 0, scale: float = 1):
+    def __init__(self, w: int, h: int, ss: Buffer, scale: float = 1):
         self.w = w
         self.h = h
         self.ss = ss
-        self.x = x
-        self.y = y
         self.scale = scale
         self.map = [-1] * (w * h)
         self.b = Buffer(w * 8, h * 8)
@@ -37,9 +35,9 @@ class TileMap:
         target()
         self.dirty = False
 
-    def draw(self):
+    def draw(self, x: int, y: int):
         if self.dirty:
             self.re_render()
 
-        blit(self.b, 0, 0, self.w * 8, self.h * 8, self.x,
-             self.y, round((self.w * 8) * self.scale), round((self.h * 8) * self.scale))
+        blit(self.b, 0, 0, self.w * 8, self.h * 8, x,
+             y, round((self.w * 8) * self.scale), round((self.h * 8) * self.scale))
