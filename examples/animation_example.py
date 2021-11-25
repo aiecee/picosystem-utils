@@ -13,10 +13,10 @@ playing = False
 def update(tick: int):
     global anim, playing
     if pressed(A):
-        if playing:
+        if playing and anim.current_frame == 4:
             anim.stop()
             playing = False
-        else:
+        elif anim.state == animation.IDLE:
             anim.play(animation.LOOP)
             playing = True
     elif pressed(B):
