@@ -15,6 +15,6 @@ def delta() -> int:
     delta = current_time - __last_delta
     if old_time == 0:
         __last_delta = current_time
-        return 1
+        return 0
     __last_delta = current_time
     return delta

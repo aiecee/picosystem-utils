@@ -52,7 +52,6 @@ class __MorphData:
 
 
 class Morph:
-
     def __init__(self, time: int, obj: object, variables: dict[str, int], easing):
         self.rate = time > 0 and 1 / time or 0
         self.progress = 0
@@ -90,27 +89,38 @@ class Morph:
 
 
 class Tween:
-
     def __init__(self, time: int, obj: object, variables: dict[str, int], easing):
-        self.morphs: list[Morph] = [Morph(time, obj, variables, easing)]
+        self.__morphs: list[Morph] = [Morph(time, obj, variables, easing)]
         self.started = False
         self.completed = False
 
     def update(self, delta: int):
-        if self.completed:
+        if self.completed or not self.started:
             return
 
-        if not self.started:
-            self.started = True
-
-        if len(self.morphs) > 0:
-            current = self.morphs[0]
+        if len(self.__morphs) > 0:
+            current = self.__morphs[0]
             current.update(delta)
             if current.completed:
-                self.morphs.remove(current)
+                self.__morphs.remove(current)
         else:
             self.completed = True
+            if "__finished" in self.__dict__:
+                self.__finished()
 
-    def then(self,  time: int, obj: object, variables: dict[str, int], easing):
-        self.morphs.append(Morph(time, obj, variables, easing))
+    def then(self, time: int, obj: object, variables: dict[str, int], easing):
+        self.__morphs.append(Morph(time, obj, variables, easing))
         return self
+
+    def on_start(self, start_def):
+        self.__started = start_def
+        return self
+
+    def on_finish(self, finish_def):
+        self.__finished = finish_def
+        return self
+
+    def start(self):
+        self.started = True
+        if "__started" in self.__dict__:
+            self.__started()
